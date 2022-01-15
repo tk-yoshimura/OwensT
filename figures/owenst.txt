@@ -1,0 +1,29 @@
+\begin{eqnarray*}
+  T(h, a) = \frac{1}{2 \pi} \int_0^a \frac{\exp(-h^2 (1+x^2) / 2)}{1+x^2} dx
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  T(h, 0) = 0, ~~~~T(0, a)= \frac{\tan^{-1}(a)}{2 \pi} ,~~~~T(h, 1) = \frac{ \Phi(h)(1-\Phi(h)) }{ 2 }
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  T(-h, a) = T(h, a), ~~~~ T(h, -a) = -T(h, a)
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  T(h, a) = \frac{ \Phi(h)+ \Phi(ha)}{2} - \Phi(h)\Phi(ha) - T(ha, 1/a)
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  T5(h, a, m) = \frac{a}{2 \pi} \sum_{i=1}^{m} w_i \frac{ \exp(-h^2(1+a^2 x_i^2)/2) }{1+a^2 x_i^2}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  f(x; h, a):= \frac{ \exp(-h^2(1+a^2 x^2)/2) }{1+a^2 x^2}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \epsilon &:=& f(x; h, a)/f(0; h, a) \\
+           &=& \frac{\exp(-h^2 a^2 x^2 / 2 )}{a^2 x^2 + 1} < \exp(-h^2 a^2 x^2 / 2) \\
+  x &>& \frac{\sqrt{- 2 \log(\epsilon)} }{h a}
+\end{eqnarray*}
