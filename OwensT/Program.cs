@@ -4,7 +4,7 @@ using System;
 namespace OwensT {
     internal class Program {
         static void Main() {
-            MultiPrecision<Pow2.N4> h = 64;
+            MultiPrecision<Pow2.N4> h = 128;
             MultiPrecision<Pow2.N4> phi = 1 + MultiPrecision<Pow2.N4>.Erf(h / MultiPrecision<Pow2.N4>.Sqrt2);
             MultiPrecision<Pow2.N4> phic = MultiPrecision<Pow2.N4>.Erfc(h / MultiPrecision<Pow2.N4>.Sqrt2);
             
