@@ -39,9 +39,12 @@ The definite integral of only the molecules of f can be obtained explicitly. Whe
 Function d is always negative.
 
 ![delta](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta.svg)  
+![delta peak](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_peak.svg)  
+
 ![delta plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_plot.svg)  
 ![delta df](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df.svg)  
 ![delta df2](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df2.svg)  
+
 
 ## Reference
 

@@ -30,3 +30,8 @@
   \int_0^1 f(x; h, a) dx &=& I_g + \int_0^1 f(x; h, a) - g(x; h, a) dx = I_g + \int_0^1 d(x; h, a) dx \\
   d(x; h, a)~~~~~ &=& -\frac{a^2 x^2}{ 1+a^2 x^2 } \exp(-h^2(1+a^2 x^2)/2)
 \end{eqnarray*} 
+
+\begin{eqnarray*}
+  && x_{peak} := \{ x| d'(x; h, a) = 0 \} \\
+  && x_{peak} = \dfrac{\sqrt{\dfrac{\sqrt{h^2+8}}{2h}-\dfrac{1}{2}}}{a}
+\end{eqnarray*} 
