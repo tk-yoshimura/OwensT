@@ -40,6 +40,7 @@ Function d is always negative, and this difference widens as a increases, and th
 
 ![delta](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta.svg)  
 ![delta plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_plot.svg)  
+![delta df](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df.svg)  
 
 ## Reference
 
