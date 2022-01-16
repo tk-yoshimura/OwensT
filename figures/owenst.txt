@@ -5,7 +5,7 @@
 \begin{eqnarray*}
   T(h, 0) &=& 0, ~~~~T(0, a)= \frac{\tan^{-1}(a)}{2 \pi} \\
   T(h, 1) &=& \frac{ \Phi(h)(1-\Phi(h)) }{ 2 } \\
-          &=& \frac{ \mathrm{erfc} \left( x / \sqrt{2} \right) \cdot \left(1 + \mathrm{erf} \left(x / \sqrt{2} \right) \right) }{8}
+          &=& \frac{ \mathrm{erfc} \left( h / \sqrt{2} \right) \cdot \left(1 + \mathrm{erf} \left(h / \sqrt{2} \right) \right) }{8}
 \end{eqnarray*}
 
 \begin{eqnarray*}
