@@ -105,8 +105,6 @@ namespace OwensT {
 
             MultiPrecision<N> s = ig * 2;
 
-            MultiPrecision<N> x_peak = MultiPrecision<N>.Sqrt(MultiPrecision<N>.Sqrt(h2 + 8) / (2 * h) - MultiPrecision<N>.Point5) / a;
-
             for (int k = 0; k < rls.Length; k++) {
                 MultiPrecision<N> x = rls[k].x;
                 MultiPrecision<N> p = a2 * x * x;
@@ -115,13 +113,40 @@ namespace OwensT {
                 MultiPrecision<N> u = rls[k].w * MultiPrecision<N>.Exp(n_half_h2 * r) * p / r;
 
                 s -= u;
-
-                if (u.Exponent < s.Exponent - MultiPrecision<N>.Bits) {
-                    break;
-                }
             }
 
             MultiPrecision<N> y = s * a / (4 * MultiPrecision<N>.PI);
+
+            return y;
+        }
+
+        public static MultiPrecision<N> T5r6(MultiPrecision<N> h, MultiPrecision<N> a) {
+            MultiPrecision<N> h2 = h * h;
+
+            MultiPrecision<N> n_half_h2 = -h2 / 2;
+
+            MultiPrecision<N> ig = MultiPrecision<N>.Sqrt(MultiPrecision<N>.PI / 2) / (h * a)
+                * MultiPrecision<N>.Exp(n_half_h2) * MultiPrecision<N>.Erf(h * a / MultiPrecision<N>.Sqrt2);
+
+            MultiPrecision<N> x_peak = MultiPrecision<N>.Sqrt(MultiPrecision<N>.Sqrt(h2 + 8) / (2 * h) - MultiPrecision<N>.Point5) / a;
+
+            MultiPrecision<N> da = MultiPrecision<N>.Min(a, x_peak * 9.75);
+
+            MultiPrecision<N> da2 = da * da;
+
+            MultiPrecision<N> s = 0;
+
+            for (int k = 0; k < rls.Length; k++) {
+                MultiPrecision<N> x = rls[k].x;
+                MultiPrecision<N> p = da2 * x * x;
+                MultiPrecision<N> r = 1 + p;
+
+                MultiPrecision<N> u = rls[k].w * MultiPrecision<N>.Exp(n_half_h2 * r) * p / r;
+
+                s += u;
+            }
+
+            MultiPrecision<N> y = ((ig * a) - (s * da) / 2) / (2 * MultiPrecision<N>.PI);
 
             return y;
         }
