@@ -15,7 +15,7 @@ namespace OwensT {
             MultiPrecision<N> s = 0;
 
             for (int k = 0; k < gls.Length; k++) { 
-                MultiPrecision<N> r = 1 + a2 * gls[k].x;
+                MultiPrecision<N> r = 1 + a2 * gls[k].x * gls[k].x;
 
                 s += gls[k].w * MultiPrecision<N>.Exp( n_half_h2 * r ) / r;
             }
@@ -25,7 +25,7 @@ namespace OwensT {
             return y;
         }
 
-        public static MultiPrecision<N> T5r2(MultiPrecision<N> h, MultiPrecision<N> a, MultiPrecision<N> eps) {
+        public static MultiPrecision<N> T5r2(MultiPrecision<N> h, MultiPrecision<N> a) {
             MultiPrecision<N> h2 = h * h, a2 = a * a;
 
             MultiPrecision<N> n_half_h2 = -h2 / 2;
@@ -33,7 +33,7 @@ namespace OwensT {
             MultiPrecision<N> s = 0;
 
             for (int k = 0; k < gls.Length; k++) { 
-                MultiPrecision<N> r = 1 + a2 * gls[k].x;
+                MultiPrecision<N> r = 1 + a2 * gls[k].x * gls[k].x;
 
                 MultiPrecision<N> u = gls[k].w * MultiPrecision<N>.Exp(n_half_h2 * r) / r;
 
@@ -45,6 +45,52 @@ namespace OwensT {
             }
 
             MultiPrecision<N> y = s * a / (2 * MultiPrecision<N>.PI);
+
+            return y;
+        }
+
+        public static MultiPrecision<N> T5r3(MultiPrecision<N> h, MultiPrecision<N> a) {
+            MultiPrecision<N> h2 = h * h, a2 = a * a;
+
+            MultiPrecision<N> n_half_h2 = -h2 / 2;
+
+            MultiPrecision<N> s = MultiPrecision<N>.Sqrt(MultiPrecision<N>.PI / 2) / (h * a)
+                * MultiPrecision<N>.Exp(n_half_h2) * MultiPrecision<N>.Erf(h * a / MultiPrecision<N>.Sqrt2);
+
+            for (int k = 0; k < gls.Length; k++) {
+                MultiPrecision<N> p = a2 * gls[k].x * gls[k].x;
+                MultiPrecision<N> r = 1 + p;
+
+                MultiPrecision<N> u = gls[k].w * MultiPrecision<N>.Exp(n_half_h2 * r) * p / r;
+
+                s -= u;
+            }
+
+            MultiPrecision<N> y = s * a / (2 * MultiPrecision<N>.PI);
+
+            return y;
+        }
+
+        public static MultiPrecision<N> T5r4(MultiPrecision<N> h, MultiPrecision<N> a) {
+            MultiPrecision<N> h2 = h * h, a2 = a * a;
+
+            MultiPrecision<N> n_half_h2 = -h2 / 2;
+
+            MultiPrecision<N> s = 0;
+
+            for (int k = 0; k < rls.Length; k++) { 
+                MultiPrecision<N> r = 1 + a2 * rls[k].x * rls[k].x;
+
+                MultiPrecision<N> u = rls[k].w * MultiPrecision<N>.Exp(n_half_h2 * r) / r;
+
+                s += u;
+
+                if (u.Exponent < s.Exponent - MultiPrecision<N>.Bits) {
+                    break;
+                }
+            }
+
+            MultiPrecision<N> y = s * a / (4 * MultiPrecision<N>.PI);
 
             return y;
         }
@@ -78,6 +124,11 @@ namespace OwensT {
         };
 
         static readonly (MultiPrecision<N> x, MultiPrecision<N> w)[] gls
-            = p16.Select((v) => ((MultiPrecision<N>)v.x * (MultiPrecision<N>)v.x, (MultiPrecision<N>)v.w)).ToArray();
+            = p16.Select((v) => ((MultiPrecision<N>)v.x, (MultiPrecision<N>)v.w)).ToArray();
+
+        static readonly (MultiPrecision<N> x, MultiPrecision<N> w)[] rls
+            = p16.Reverse().Select((v) => (((1 - (MultiPrecision<Plus8>)v.x) / 2).Convert<N>(), (MultiPrecision<N>)v.w)).Concat(
+                p16.Select((v) => (((MultiPrecision<N>)v.x + 1) / 2, (MultiPrecision<N>)v.w))
+            ).ToArray();
     }
 }
