@@ -25,7 +25,8 @@
 \end{eqnarray*}
 
 \begin{eqnarray*}
-  \epsilon &:=& f(x; h, a)/f(0; h, a) \\
-           &=& \frac{\exp(-h^2 a^2 x^2 / 2 )}{a^2 x^2 + 1} < \exp(-h^2 a^2 x^2 / 2) \\
-  x &>& \frac{\sqrt{- 2 \log(\epsilon)} }{h a}
-\end{eqnarray*}
+  g(x; h, a)~~~~~ &:=& \exp(-h^2(1+a^2 x^2)/2) \\
+  \int_0^1 g(x; h, a) dx &=& \frac{\sqrt{\pi}}{\sqrt{2} h a} \exp(-h^2/2) \mathrm{erf}(h a / \sqrt{2}) = I_g \\
+  \int_0^1 f(x; h, a) dx &=& I_g + \int_0^1 f(x; h, a) - g(x; h, a) dx = I_g + \int_0^1 d(x; h, a) dx \\
+  d(x; h, a)~~~~~ &=& -\frac{a^2 x^2}{ 1+a^2 x^2 } \exp(-h^2(1+a^2 x^2)/2)
+\end{eqnarray*} 
