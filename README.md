@@ -48,6 +48,7 @@ Function d is always negative.
 The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
 
 ![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
+![t5modalgo_hlim](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo_hlim.svg)  
 
 ## Reference
 

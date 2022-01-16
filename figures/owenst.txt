@@ -45,3 +45,7 @@
       &=& \frac{a_{trunc}}{2} \sum_{i=1}^{m} w_i \cdot d(x_i; h, a_{trunc}) \\
       && ~~~~ w_i, x_i : \text{Gauss } m\text{-points quadrature weight and } [0, 1] \text{ shifted point}
 \end{eqnarray*}
+
+\begin{eqnarray*}
+  \lim_{h \rightarrow 0} I_g = a 
+\end{eqnarray*}
