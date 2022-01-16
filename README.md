@@ -20,6 +20,7 @@ Generate Owen's T Function Expected Value
 The Fast algorithm by Patefield and Tandy et al. is a method that uses six different algorithms depending on the region.
 However, at accuracies higher than double, the algorithms diverge in some cases and approximations cannot be obtained.
 Among the six algorithms, the Gaussian quadrature-based generation method is the most applicable to a wide range of domains and is stable without worrying about loss of digits.
+In addition, since it is an even function, only half of the evaluation points in the quadrature method are needed.
 
 ![t5algo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5algo.svg)  
 [Gaussian quadrature Sampling Points](https://github.com/tk-yoshimura/LegendrePolynomialRoot)  
