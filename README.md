@@ -45,6 +45,9 @@ Function d is always negative.
 ![delta df](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df.svg)  
 ![delta df2](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df2.svg)  
 
+The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
+
+![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
 
 ## Reference
 
