@@ -34,11 +34,6 @@ When h is large, the Gaussian quadrature method may not be able to correctly cal
 ![integrand_h8](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h8.svg)  
 ![integrand_h16](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h16.svg)  
 
-Let the required relative error be &epsilon;.  
-When this threshold is below 1, we can multiply by a and use the equation T5.
-
-![xcut](https://github.com/tk-yoshimura/OwensT/blob/main/figures/xcut.svg)  
-
 ## Reference
 
 Owen, D B. "Tables for computing bivariate normal probabilities". Annals of Mathematical Statistics, 27, 1075–1090. (1956)  
