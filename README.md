@@ -30,8 +30,8 @@ When h is large, the Gaussian quadrature method may not be able to correctly cal
 ![integrand](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand.svg)  
 ![integrand_plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_plot.svg)  
 
-The definite integral of only the molecules of f can be obtained explicitly. When h is large, f and g become very close. 
-Function d is always negative.
+The definite integral of only the numerator of f can be obtained explicitly. When h is large, f and g become very close. 
+The function d is always negative.
 
 ![delta df](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df.svg)  
 
