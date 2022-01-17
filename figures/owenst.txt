@@ -21,31 +21,31 @@
 \end{eqnarray*}
 
 \begin{eqnarray*}
-  f(x; h, a):= \frac{ \exp(-h^2(1+a^2 x^2)/2) }{1+a^2 x^2}
+  f(x; h):= \frac{ \exp(-h^2(1+x^2)/2) }{1+x^2}
 \end{eqnarray*}
 
 \begin{eqnarray*}
-  g(x; h, a)~~~~~ &:=& \exp(-h^2(1+a^2 x^2)/2) \\
-  a \int_0^1 g(x; h, a) dx &=& \frac{\sqrt{\pi}}{\sqrt{2} h} \exp(-h^2/2) \mathrm{erf}(h a / \sqrt{2}) = I_g \\
-  a \int_0^1 f(x; h, a) dx &=& I_g + a \int_0^1 f(x; h, a) - g(x; h, a) dx = I_g + a \int_0^1 d(x; h, a) dx \\
-  d(x; h, a)~~~~~ &=& -\frac{a^2 x^2}{ 1+a^2 x^2 } \exp(-h^2(1+a^2 x^2)/2)
+  g(x; h)~~~~~ &:=& \exp(-h^2(1+x^2)/2) \\
+  \int_0^a g(x; h) dx &=& \frac{\sqrt{\pi}}{\sqrt{2} h} \exp(-h^2/2) \mathrm{erf}(h a / \sqrt{2}) = I_g \\
+  \int_0^a f(x; h) dx &=& I_g + \int_0^a f(x; h) - g(x; h) dx = I_g + \int_0^a d(x; h) dx \\
+  d(x; h)~~~~~ &=& -\frac{x^2}{ 1+x^2 } \exp(-h^2(1+x^2)/2)
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-  && x_{peak} := \{ x| d'(x; h, a) = 0 \} \\
-  && x_{peak} = \dfrac{\sqrt{\dfrac{\sqrt{h^2+8}}{2h}-\dfrac{1}{2}}}{a}
+  && x_{peak}(h) := \{ x| d'(x; h) = 0 \} \\
+  && x_{peak}(h) = \sqrt{\dfrac{\sqrt{h^2+8}}{2h}-\dfrac{1}{2}}
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-  T5'(h, a, m) &=& \frac{1}{2 \pi} \left( I_g + I_d \right) \\
-  I_g &=& a \int_0^1 g(x; h, a) dx = \frac{\sqrt{\pi}}{\sqrt{2} h} \exp(-h^2/2) \mathrm{erf}(h a / \sqrt{2}) \\
-  I_d &=& a \int_0^1 d(x; h, a) dx \\ 
-      &\approx& a_{trunc} \int_0^1 d(x; h, a_{trunc} := min(a, s \cdot x_{peak})) dx \\
+  T(h, a) &=& \frac{1}{2 \pi} \left( I_g + I_p + I_d \right) \\
+  I_g &=& \int_0^a g(x; h) dx = \frac{\sqrt{\pi}}{\sqrt{2} h} \exp(-h^2/2) \mathrm{erf}(h a / \sqrt{2})\\
+      && \lim_{h \rightarrow 0} I_g = a \\
+  I_p &=& \int_0^{a_p} d(x; h) dx \\
+      && ~~~~ a_p := {\min(a, 2 \cdot x_{peak}(h))}\\ 
+  I_d &=& \int_{a_p}^{a} d(x; h) dx \\ 
+      &\approx& \int_{a_p}^{a_d} d(x; h) dx \\
+      && ~~~~ a_d := {\min(a, s \cdot x_{peak}(h))} \\
       && ~~~~ s: \text{truncation factor (depends on } m \text{)} \\
-      &=& \frac{a_{trunc}}{2} \sum_{i=1}^{m} w_i \cdot d(x_i; h, a_{trunc}) \\
-      && ~~~~ w_i, x_i : \text{Gauss } m\text{-points quadrature weight and } [0, 1] \text{ shifted point}
-\end{eqnarray*}
-
-\begin{eqnarray*}
-  \lim_{h \rightarrow 0} I_g = a 
+  I_{*} &=& \int_{p}^{q} d(x; h) dx \approx (q - a) \sum_{i=1}^{m} w_i \cdot d(x_i; h) \\
+      && ~~~~ w_i, x_i : \text{Odd Gauss } m\text{-points quadrature weight and } [p, q] \text{ shifted point}
 \end{eqnarray*}

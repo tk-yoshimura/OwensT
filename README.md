@@ -27,13 +27,8 @@ In addition, since it is an even function, only half of the evaluation points in
 
 When h is large, the Gaussian quadrature method may not be able to correctly calculate because integrand f takes a small value in the region where x is large and the sample points are concentrated.
 
-![gauss_integrand](https://github.com/tk-yoshimura/OwensT/blob/main/figures/gauss_integrand.svg)  
-![integrand_hp5](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_hp5.svg)  
-![integrand_h1](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h1.svg)  
-![integrand_h2](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h2.svg)  
-![integrand_h4](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h4.svg)  
-![integrand_h8](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h8.svg)  
-![integrand_h16](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_h16.svg)  
+![integrand](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand.svg)  
+![integrand_plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/integrand_plot.svg)  
 
 The definite integral of only the molecules of f can be obtained explicitly. When h is large, f and g become very close. 
 Function d is always negative.
@@ -42,13 +37,11 @@ Function d is always negative.
 ![delta peak](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_peak.svg)  
 
 ![delta plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_plot.svg)  
-![delta df](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df.svg)  
-![delta df2](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_df2.svg)  
+![peak plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/peak_plot.svg)  
 
 The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
 
 ![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
-![t5modalgo_hlim](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo_hlim.svg)  
 
 ## Reference
 
