@@ -45,7 +45,7 @@
   I_d &=& \int_{a_p}^{a} d(x; h) dx \\ 
       &\approx& \int_{a_p}^{a_d} d(x; h) dx \\
       && ~~~~ a_d := {\min(a, s \cdot x_{peak}(h))} \\
-      && ~~~~ s: \text{truncation factor (depends on } m \text{)} \\
+      && ~~~~ s: \text{truncation factor (depends on precision)} \\
   I_{*} &=& \int_{p}^{q} d(x; h) dx \approx (q - a) \sum_{i=1}^{m} w_i \cdot d(x_i; h) \\
       && ~~~~ w_i, x_i : \text{Odd Gauss } m\text{-points quadrature weight and } [p, q] \text{ shifted point}
 \end{eqnarray*}
