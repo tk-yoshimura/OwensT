@@ -32,8 +32,9 @@
 \end{eqnarray*} 
 
 \begin{eqnarray*}
-  && x_{peak}(h) := \{ x| d'(x; h) = 0 \} \\
-  && x_{peak}(h) = \sqrt{\dfrac{\sqrt{h^2+8}}{2h}-\dfrac{1}{2}}
+  x_{peak}(h) & := & \{ x| d'(x; h) = 0 \} \\
+  x_{peak}(h) & = & \sqrt{\dfrac{\sqrt{h^2+8}}{2h}-\dfrac{1}{2}} \\
+                 & \rightarrow & \frac{2}{h^2} - \frac{4}{h^4}+\frac{16}{h^6}-\frac{80}{h^8} + O(h^{-9})~~(h \rightarrow \infty)
 \end{eqnarray*} 
 
 \begin{eqnarray*}
