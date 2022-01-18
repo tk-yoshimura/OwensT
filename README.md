@@ -48,7 +48,7 @@ a &leq; 4 or h &geq; 4:
 ![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
 ![t5modalgo_plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo_plot.svg)  
 
-a &gt; 4 and h %lt 4:  
+a &gt; 4 and h &lt; 4:  
 Outside the region the above equation, it can be calculated using the properties 2 formula.
 Also, in the region where erf(ha/sqrt(2)) can be regardes as 1, it can be calculated using the limit formula.
 
