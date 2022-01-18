@@ -52,7 +52,7 @@ a &leq; a_thr or h &geq; h_thr:
 ![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
 ![t5modalgo_plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo_plot.svg)  
 
-a &gt; a_thr and h &lt; h_thr:  
+a &gt; a_thr and h &lt; 0.675:  
 Outside the region the above equation, it can be calculated using the Properties #2 formula.
 Also, in the region where erf(ha/sqrt(2)) can be regardes as 1, it can be calculated using the limit formula.  
 When calculating 1 - erf(h/sqrt(2))erf(ha/sqrt(2)), in order for there to be no digit loss, erf(h/sqrt(2)) &lt; 1/2, h = 0.675....
@@ -63,6 +63,12 @@ For example, the dashed line at 9 times the peak is above the relative error 10^
 a &leq; 3.9 or h &geq; 3.0, so the value can be obtained correctly be setting truncation factor=9 in this region.
 
 ![relative_error](https://github.com/tk-yoshimura/OwensT/blob/main/figures/relative_error.svg)  
+
+a &gt; a_thr and 0.675 &geq; h &lt; h_thr:  
+For region that can't be handled by setting the trunction factor as a constant, substitube an expression that approximates the relative error curve. 
+Fortunately, it regresses to the power function.
+
+![relative_error_curve](https://github.com/tk-yoshimura/OwensT/blob/main/figures/relative_error_curve.svg)  
 
 ## Reference
 
