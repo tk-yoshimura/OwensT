@@ -64,7 +64,7 @@ a &leq; 3.9 or h &geq; 3.0, so the value can be obtained correctly be setting tr
 
 ![relative_error](https://github.com/tk-yoshimura/OwensT/blob/main/figures/relative_error.svg)  
 
-a &gt; a_thr and 0.675 &geq; h &lt; h_thr:  
+a &gt; a_thr and 0.675 &leq; h &lt; h_thr:  
 For region that can't be handled by setting the trunction factor as a constant, substitube an expression that approximates the relative error curve. 
 Fortunately, it regresses to the power function.
 
