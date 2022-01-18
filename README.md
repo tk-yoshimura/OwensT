@@ -9,11 +9,12 @@ Generate Owen's T Function Expected Value
 ## Special Values
 
 ![special values](https://github.com/tk-yoshimura/OwensT/blob/main/figures/svalue.svg)  
+![limit](https://github.com/tk-yoshimura/OwensT/blob/main/figures/svalue_limit.svg)  
 
 ## Properties
 
 ![symmetry](https://github.com/tk-yoshimura/OwensT/blob/main/figures/symmetry.svg)  
-![formula](https://github.com/tk-yoshimura/OwensT/blob/main/figures/formula.svg)  
+![large_a](https://github.com/tk-yoshimura/OwensT/blob/main/figures/large_a.svg)  
 
 ## Expected Value Generation
 

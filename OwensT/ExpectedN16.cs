@@ -10,6 +10,26 @@ namespace OwensT {
         }
 
         public static MultiPrecision<Pow2.N16> Value(MultiPrecision<Pow2.N16> h, MultiPrecision<Pow2.N16> a) {
+            if (a <= 4 || h >= 4) {
+                return GaussQuadrature(h, a);
+            }
+
+            if (a <= 32) {
+                MultiPrecision<Pow2.N16> c = (1 - MultiPrecision<Pow2.N16>.Erf(h / MultiPrecision<Pow2.N16>.Sqrt2) * MultiPrecision<Pow2.N16>.Erf(h * a / MultiPrecision<Pow2.N16>.Sqrt2)) / 4;
+                MultiPrecision<Pow2.N16> t = GaussQuadrature(h * a, 1 / a);
+
+                MultiPrecision<Pow2.N16> y = c - t;
+
+                return y;
+            }
+            else {
+                MultiPrecision<Pow2.N16> y = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2) / 4;
+
+                return y;
+            }
+        }
+
+        public static MultiPrecision<Pow2.N16> GaussQuadrature(MultiPrecision<Pow2.N16> h, MultiPrecision<Pow2.N16> a) {
             MultiPrecision<Pow2.N16> h2 = h * h, n_half_h2 = -h2 / 2;
 
             MultiPrecision<Pow2.N16> ig = MultiPrecision<Pow2.N16>.Sqrt(MultiPrecision<Pow2.N16>.PI / 2) / h

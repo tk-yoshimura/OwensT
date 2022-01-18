@@ -13,7 +13,8 @@
 \end{eqnarray*}
 
 \begin{eqnarray*}
-  T(h, a) = \frac{ \Phi(h)+ \Phi(ha)}{2} - \Phi(h)\Phi(ha) - T(ha, 1/a)
+  T(h, a) &=& \frac{ \Phi(h)+ \Phi(ha)}{2} - \Phi(h)\Phi(ha) - T(ha, 1/a) \\
+          &=& \frac{1}{4} \left( 1-\mathrm{erf} \left( h/\sqrt{2} \right) \cdot \mathrm{erf} \left( h a/\sqrt{2} \right) \right) - T(ha, 1/a)
 \end{eqnarray*}
 
 \begin{eqnarray*}
@@ -49,4 +50,8 @@
       && ~~~~ s: \text{truncation factor (depends on precision)} \\
   I_{*} &=& \int_{p}^{q} d(x; h) dx \approx (q - a) \sum_{i=1}^{m} w_i \cdot d(x_i; h) \\
       && ~~~~ w_i, x_i : \text{Odd Gauss } m\text{-points quadrature weight and } [p, q] \text{ shifted point}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+  \lim_{a \rightarrow \infty} T(h, a) = \frac{1}{4} \mathrm{erfc} \left( h/\sqrt{2} \right)
 \end{eqnarray*}
