@@ -1,5 +1,6 @@
 ﻿using MultiPrecision;
 using System.Linq;
+using System;
 
 namespace OwensT {
     public static class ExpectedN4 {
@@ -14,9 +15,13 @@ namespace OwensT {
                 return GaussQuadrature(h, a);
             }
 
-            if (a <= 32) {
+            if (h * a <= 32) { // erf(h * a / sqrt(2)) < 1
                 MultiPrecision<Pow2.N4> c = (1 - MultiPrecision<Pow2.N4>.Erf(h / MultiPrecision<Pow2.N4>.Sqrt2) * MultiPrecision<Pow2.N4>.Erf(h * a / MultiPrecision<Pow2.N4>.Sqrt2)) / 4;
                 MultiPrecision<Pow2.N4> t = GaussQuadrature(h * a, 1 / a);
+
+                if (c < t * 2) {
+                    throw new ArithmeticException($"digit loss {h}, {a}");
+                }
 
                 MultiPrecision<Pow2.N4> y = c - t;
 

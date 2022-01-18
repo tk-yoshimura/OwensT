@@ -1,50 +1,75 @@
 ﻿using MultiPrecision;
 using System;
+using System.IO;
 
 namespace OwensT {
     internal class Program {
         static void Main() {
-            //Check();
-
-            for (double h = 1d / 65536; h <= 65536; h *= 2) {
-                double a = 1;
-
-                MultiPrecision<Pow2.N16> phi = 1 + MultiPrecision<Pow2.N16>.Erf(h / MultiPrecision<Pow2.N16>.Sqrt2);
-                MultiPrecision<Pow2.N16> phic = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2);
+            using StreamWriter sw = new("../../../../results_disused/expected_test.csv");
             
-                MultiPrecision<Pow2.N16> expected = phi * phic / 8;
-            
-                MultiPrecision<Pow2.N4> actual4 = ExpectedN4.Value(h, a);
-                MultiPrecision<Pow2.N8> actual8 = ExpectedN8.Value(h, a);
-                MultiPrecision<Pow2.N16> actual16 = ExpectedN16.Value(h, a);
-            
-                Console.WriteLine(h);
-                Console.WriteLine(actual4);
-                Console.WriteLine(actual8);
-                Console.WriteLine(actual16);
-                Console.WriteLine(expected);
+            for (double h = 1d / 1024; h < 0.25; h *= 2) {
+                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 1; a < 32; a += 0.25) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+                    CheckExpectedN(h, a, sw);
+                }
             }
 
-            for (double h = 1d / 65536; h <= 65536; h *= 2) {
-                string a = "1e+10000";
+            for (double h = 0.25; h < 16; h += 0.125) {
+                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 1; a < 32; a += 0.25) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+                    CheckExpectedN(h, a, sw);
+                }
+            }
 
-                MultiPrecision<Pow2.N16> phic = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2);
-            
-                MultiPrecision<Pow2.N16> expected = phic / 4;
-            
-                MultiPrecision<Pow2.N4> actual4 = ExpectedN4.Value(h, a);
-                MultiPrecision<Pow2.N8> actual8 = ExpectedN8.Value(h, a);
-                MultiPrecision<Pow2.N16> actual16 = ExpectedN16.Value(h, a);
-            
-                Console.WriteLine(h);
-                Console.WriteLine(actual4);
-                Console.WriteLine(actual8);
-                Console.WriteLine(actual16);
-                Console.WriteLine(expected);
+            for (double h = 16; h <= 256; h *= 2) {
+                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 1; a < 32; a += 0.25) {
+                    CheckExpectedN(h, a, sw);
+                }
+                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+                    CheckExpectedN(h, a, sw);
+                }
             }
 
             Console.WriteLine("END");
             Console.Read();
+        }
+
+        static void CheckExpectedN(double h, double a, StreamWriter sw) {
+            Console.WriteLine($"{h}, {a}");
+            sw.WriteLine($"{h}, {a}");
+            
+            MultiPrecision<Pow2.N4> actual4 = ExpectedN4.Value(h, a);
+            MultiPrecision<Pow2.N8> actual8 = ExpectedN8.Value(h, a);
+            MultiPrecision<Pow2.N16> actual16 = ExpectedN16.Value(h, a);
+            
+            Console.WriteLine(actual4);
+            Console.WriteLine(actual8);
+            Console.WriteLine(actual16);
+
+            sw.WriteLine(actual4);
+            sw.WriteLine(actual8);
+            sw.WriteLine(actual16);
+            sw.Flush();
+
+            if (MultiPrecision<Pow2.N4>.Abs(actual8.Convert<Pow2.N4>() / actual4 - 1) > 1e-33) {
+                throw new ArithmeticException("fail n4");
+            }
+            if (MultiPrecision<Pow2.N8>.Abs(actual16.Convert<Pow2.N8>() / actual8 - 1) > 1e-72) {
+                throw new ArithmeticException("fail n8");
+            }
         }
 
         static void Check() {
