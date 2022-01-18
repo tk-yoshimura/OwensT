@@ -1,6 +1,6 @@
 # OwensT
 
-Generate Owen's T Function Expected Value
+Owen's T Function Expected Value Generation
 
 ## Definition
 
