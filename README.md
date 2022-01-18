@@ -16,7 +16,7 @@ Generate Owen's T Function Expected Value
 ![symmetry](https://github.com/tk-yoshimura/OwensT/blob/main/figures/symmetry.svg)  
 ![large_a](https://github.com/tk-yoshimura/OwensT/blob/main/figures/large_a.svg)  
 
-## Expected Value Generation
+## Patefield and Tandy Algorithm
 
 The Fast algorithm by Patefield and Tandy et al. is a method that uses six different algorithms depending on the region.
 However, at accuracies higher than double, the algorithms diverge in some cases and approximations cannot be obtained.
@@ -25,6 +25,8 @@ In addition, since it is an even function, only half of the evaluation points in
 
 ![t5algo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5algo.svg)  
 [Gaussian quadrature Sampling Points](https://github.com/tk-yoshimura/LegendrePolynomialRoot)  
+
+## Properties of the integrand
 
 When h is large, the Gaussian quadrature method may not be able to correctly calculate because integrand f takes a small value in the region where x is large and the sample points are concentrated.
 
@@ -41,6 +43,8 @@ The function d is always negative.
 
 ![delta plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_plot.svg)  
 ![peak plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/peak_plot.svg)  
+
+## Modified T5 method
 
 The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
 
