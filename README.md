@@ -24,7 +24,7 @@ Among the six algorithms, the Gaussian quadrature-based generation method is the
 In addition, since it is an even function, only half of the evaluation points in the quadrature method are needed.
 
 ![t5algo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5algo.svg)  
-[Gaussian quadrature Sampling Points](https://github.com/tk-yoshimura/LegendrePolynomialRoot)  
+see also: [Gaussian quadrature Sampling Points](https://github.com/tk-yoshimura/LegendrePolynomialRoot)  
 
 ## Properties of the integrand
 
