@@ -4,31 +4,24 @@ using System;
 namespace OwensT {
     internal class Program {
         static void Main() {
-            //MultiPrecision<Pow2.N4> n4_r7 = GaussQuadrature2<Pow2.N4>.T5r8(32, 32);
+            double a = 1;
+
+            for (double h = 1d / 65536; h <= 65536; h *= 2) {
+                MultiPrecision<Pow2.N16> phi = 1 + MultiPrecision<Pow2.N16>.Erf(h / MultiPrecision<Pow2.N16>.Sqrt2);
+                MultiPrecision<Pow2.N16> phic = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2);
             
-            for (double a = 1; a <= 64; a += 1d / 16) {
-                MultiPrecision<Pow2.N4> n4_r7 = GaussQuadrature2<Pow2.N4>.T5r8(1, a);
+                MultiPrecision<Pow2.N16> expected = phi * phic / 8;
             
-                Console.WriteLine($"{a},{n4_r7}");
+                MultiPrecision<Pow2.N4> actual4 = ExpectedN4.Value(h, a);
+                MultiPrecision<Pow2.N8> actual8 = ExpectedN8.Value(h, a);
+                MultiPrecision<Pow2.N16> actual16 = ExpectedN16.Value(h, a);
+            
+                Console.WriteLine(h);
+                Console.WriteLine(actual4);
+                Console.WriteLine(actual8);
+                Console.WriteLine(actual16);
+                Console.WriteLine(expected);
             }
-
-            //double a = 1;
-            //
-            //for (double h = 1; h <= 65536; h *= 2) {
-            //    MultiPrecision<Pow2.N16> phi = 1 + MultiPrecision<Pow2.N16>.Erf(h / MultiPrecision<Pow2.N16>.Sqrt2);
-            //    MultiPrecision<Pow2.N16> phic = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2);
-            //
-            //    MultiPrecision<Pow2.N16> expected = phi * phic / 8;
-            //
-            //    MultiPrecision<Pow2.N4> n4_r7 = GaussQuadrature2<Pow2.N4>.T5r8(h, a);
-            //
-            //    Console.WriteLine(h);
-            //    Console.WriteLine(expected);
-            //    
-            //    Console.WriteLine(n4_r7);
-            //}
-
-            Check();
 
             Console.WriteLine("END");
             Console.Read();
