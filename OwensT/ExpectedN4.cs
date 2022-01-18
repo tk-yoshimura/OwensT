@@ -1,12 +1,12 @@
 ﻿using MultiPrecision;
-using System.Linq;
 using System;
+using System.Linq;
 
 namespace OwensT {
     public static class ExpectedN4 {
         static readonly (MultiPrecision<Pow2.N4> x, MultiPrecision<Pow2.N4> w)[] gls;
 
-        static ExpectedN4(){
+        static ExpectedN4() {
             gls = p127.Select((v) => ((MultiPrecision<Pow2.N4>)v.x, (MultiPrecision<Pow2.N4>)v.w)).ToArray();
         }
 
@@ -16,7 +16,7 @@ namespace OwensT {
             }
 
             if (h * a <= 32) { // erf(h * a / sqrt(2)) < 1
-                MultiPrecision<Pow2.N4> c = (1 - MultiPrecision<Pow2.N4>.Erf(h / MultiPrecision<Pow2.N4>.Sqrt2) * MultiPrecision<Pow2.N4>.Erf(h * a / MultiPrecision<Pow2.N4>.Sqrt2)) / 4;
+                MultiPrecision<Pow2.N4> c = OneMinusErfErf<Pow2.N4, Plus8<Pow2.N4>>.Value(h / MultiPrecision<Pow2.N4>.Sqrt2, h * a / MultiPrecision<Pow2.N4>.Sqrt2) / 4;
                 MultiPrecision<Pow2.N4> t = GaussQuadrature(h * a, 1 / a);
 
                 if (c < t * 2) {
@@ -45,7 +45,7 @@ namespace OwensT {
             MultiPrecision<Pow2.N4> ad = MultiPrecision<Pow2.N4>.Min(a, x_peak * 9.625) - ap;
 
             MultiPrecision<Pow2.N4> sp = 0, sd = 0;
-            
+
             for (int k = 0; k < gls.Length; k++) {
                 (MultiPrecision<Pow2.N4> x, MultiPrecision<Pow2.N4> w) = gls[k];
                 MultiPrecision<Pow2.N4> x_sft = x * ap;
@@ -58,7 +58,7 @@ namespace OwensT {
                 sp += u;
             }
 
-            if (ad > 0) { 
+            if (ad > 0) {
                 for (int k = 0; k < gls.Length; k++) {
                     (MultiPrecision<Pow2.N4> x, MultiPrecision<Pow2.N4> w) = gls[k];
                     MultiPrecision<Pow2.N4> x_sft = x * ad + ap;

@@ -14,7 +14,7 @@ namespace OwensT {
             MultiPrecision<N> ap = MultiPrecision<N>.Min(a, x_peak * 2), ad = a - ap;
 
             MultiPrecision<N> sp = 0, sd = 0;
-            
+
             for (int k = 0; k < gls.Length; k++) {
                 (MultiPrecision<N> x, MultiPrecision<N> w) = gls[k];
                 MultiPrecision<N> x_sft = x * ap;
@@ -27,7 +27,7 @@ namespace OwensT {
                 sp += u;
             }
 
-            if (ad > 0) { 
+            if (ad > 0) {
                 for (int k = 0; k < gls.Length; k++) {
                     (MultiPrecision<N> x, MultiPrecision<N> w) = gls[k];
                     MultiPrecision<N> x_sft = x * ad + ap;
@@ -57,7 +57,7 @@ namespace OwensT {
             MultiPrecision<N> ad = MultiPrecision<N>.Min(a - ap, x_peak * 6);
 
             MultiPrecision<N> sp = 0, sd = 0;
-            
+
             for (int k = 0; k < gls.Length; k++) {
                 (MultiPrecision<N> x, MultiPrecision<N> w) = gls[k];
                 MultiPrecision<N> x_sft = x * ap;
@@ -70,7 +70,7 @@ namespace OwensT {
                 sp += u;
             }
 
-            if (ad > 0) { 
+            if (ad > 0) {
                 for (int k = 0; k < gls.Length; k++) {
                     (MultiPrecision<N> x, MultiPrecision<N> w) = gls[k];
                     MultiPrecision<N> x_sft = x * ad + ap;
