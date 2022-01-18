@@ -44,7 +44,7 @@ The function d is always negative.
 ![delta plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/delta_plot.svg)  
 ![peak plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/peak_plot.svg)  
 
-## Modified T5 method
+## Modified T5 method (Original)
 
 The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
 
