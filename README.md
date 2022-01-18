@@ -48,13 +48,20 @@ The function d is always negative.
 
 The equation that expands the range of application of the T5 algorithm by censoring a when h is large is as follows:
 
-a &leq; 4 or h &geq; 4:  
+a &leq; a_thr or h &geq; h_thr:  
 ![t5modalgo](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo.svg)  
 ![t5modalgo_plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/t5modalgo_plot.svg)  
 
-a &gt; 4 and h &lt; 4:  
+a &gt; a_thr and h &lt; h_thr:  
 Outside the region the above equation, it can be calculated using the Properties #2 formula.
 Also, in the region where erf(ha/sqrt(2)) can be regardes as 1, it can be calculated using the limit formula.
+
+The threshold a_thr, h_thr is determined based on the following figure, which shows the relationship
+between the peak of the integrand (dashed) and the ralative error (solid).
+For example, the dashed line at 9 times the peak is above the relative error 10^-32 (red) in the region where
+a &leq; 3.9 or h &geq; 3.0, so the value can be obtained correctly be setting truncation factor=9 in this region.
+
+![relative_error](https://github.com/tk-yoshimura/OwensT/blob/main/figures/relative_error.svg)  
 
 ## Reference
 
