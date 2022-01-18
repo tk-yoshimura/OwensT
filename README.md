@@ -54,7 +54,8 @@ a &leq; a_thr or h &geq; h_thr:
 
 a &gt; a_thr and h &lt; h_thr:  
 Outside the region the above equation, it can be calculated using the Properties #2 formula.
-Also, in the region where erf(ha/sqrt(2)) can be regardes as 1, it can be calculated using the limit formula.
+Also, in the region where erf(ha/sqrt(2)) can be regardes as 1, it can be calculated using the limit formula.  
+When calculating 1 - erf(h/sqrt(2))erf(ha/sqrt(2)), in order for there to be no loss of digits, erf(h/sqrt(2)) &lt; 1/2, h = 0.675....
 
 The threshold a_thr, h_thr is determined based on the following figure, which shows the relationship
 between the peak of the integrand (dashed) and the ralative error (solid).
