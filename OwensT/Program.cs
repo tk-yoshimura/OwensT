@@ -5,62 +5,96 @@ using System.IO;
 namespace OwensT {
     internal class Program {
         static void Main() {
-            using StreamWriter sw = new("../../../../results/expected_n8.csv");
-            sw.WriteLine("h,a,T");
-
-            for (double h = 1d / 1024; h < 0.25; h *= 2) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 1; a < 32; a += 0.25) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-            }
-
-            for (double h = 0.25; h < 16; h += 0.125) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 1; a < 32; a += 0.25) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
+            using StreamWriter sw = new("../../../../results/relative_error_less.csv");
+            sw.WriteLine("h,a,y,relative_error");
+            
+            for (double h = 1d / 2; h <= 4; h += 1d / 64) {
+                MultiPrecision<Pow2.N16> limit = MultiPrecision<Pow2.N16>.Erfc(h / MultiPrecision<Pow2.N16>.Sqrt2) / 4;
+            
+                MultiPrecision<Pow2.N16> a_threshold = 0;
+            
+                for (int exp = 8; exp <= 40; exp += 4) {
+                    MultiPrecision<Pow2.N16> threshold = (1 - MultiPrecision<Pow2.N16>.Pow10(-exp)) * limit;
+            
+                    for (MultiPrecision<Pow2.N16> da = 1d / h; da >= 1d / (h * 4096); da /= 2) {
+                        for (MultiPrecision<Pow2.N16> a = a_threshold; a <= 1024; a += da) {
+                            MultiPrecision<Pow2.N16> y = ExpectedN16.Value(h, a);
+            
+                            if (y > threshold) {
+                                a_threshold = MultiPrecision<Pow2.N16>.Max(0, a - da);
+                                break;
+                            }
+                        }
+                    }
+            
+                    MultiPrecision<Pow2.N16> y_thr = ExpectedN16.Value(h, a_threshold);
+                    MultiPrecision<Pow2.N16> error = (limit - y_thr) / limit;
+            
+                    Console.WriteLine($"{h},{a_threshold:e5},{y_thr:e5},{error:e5}");
+                    sw.WriteLine($"{h},{a_threshold:e5},{y_thr},{error:e5}");
+            
+                    sw.Flush();
                 }
             }
+            
+            sw.Close();
 
-            for (double h = 16; h <= 256; h *= 2) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 1; a < 32; a += 0.25) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
-
-                    sw.WriteLine($"{h},{a},{y}");
-                }
-            }
+            //using StreamWriter sw = new("../../../../results/expected_n8.csv");
+            //sw.WriteLine("h,a,T");
+            //
+            //for (double h = 1d / 1024; h < 0.25; h *= 2) {
+            //    for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 1; a < 32; a += 0.25) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //}
+            //
+            //for (double h = 0.25; h < 16; h += 0.125) {
+            //    for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 1; a < 32; a += 0.25) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //}
+            //
+            //for (double h = 16; h <= 256; h *= 2) {
+            //    for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 1; a < 32; a += 0.25) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //    for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
+            //        MultiPrecision<Pow2.N8> y = ExpectedN8.Value(h, a);
+            //
+            //        sw.WriteLine($"{h},{a},{y}");
+            //    }
+            //}
 
             sw.Close();
 
@@ -71,11 +105,11 @@ namespace OwensT {
         static void CheckExpectedN(double h, double a, StreamWriter sw) {
             Console.WriteLine($"{h}, {a}");
             sw.WriteLine($"{h}, {a}");
-            
+
             MultiPrecision<Pow2.N4> actual4 = ExpectedN4.Value(h, a);
             MultiPrecision<Pow2.N8> actual8 = ExpectedN8.Value(h, a);
             MultiPrecision<Pow2.N16> actual16 = ExpectedN16.Value(h, a);
-            
+
             Console.WriteLine(actual4);
             Console.WriteLine(actual8);
             Console.WriteLine(actual16);
