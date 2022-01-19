@@ -6,6 +6,10 @@ Owen's T Function Expected Value Generation
 
 ![define](https://github.com/tk-yoshimura/OwensT/blob/main/figures/define.svg)  
 
+## Table
+
+[NumericTable(256bits)](https://github.com/tk-yoshimura/OwensT/blob/main/results/expected_n8.csv)  
+
 ## Special Values
 
 ![special values](https://github.com/tk-yoshimura/OwensT/blob/main/figures/svalue.svg)  
