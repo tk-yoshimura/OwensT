@@ -74,6 +74,11 @@ Fortunately, it regresses to the power function.
 
 ![relative_error_curve](https://github.com/tk-yoshimura/OwensT/blob/main/figures/relative_error_curve.svg)  
 
+a &lt;&lt; 1  
+When a is extremely small, it is better to integrate based on the following equation.  
+
+![less_a](https://github.com/tk-yoshimura/OwensT/blob/main/figures/less_a.svg)  
+
 ## Reference
 
 Owen, D B. "Tables for computing bivariate normal probabilities". Annals of Mathematical Statistics, 27, 1075–1090. (1956)  

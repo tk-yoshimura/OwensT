@@ -1,45 +1,37 @@
-﻿using MultiPrecision;
+﻿using DoubleDouble;
+using MultiPrecision;
 using System;
 using System.IO;
 
 namespace OwensT {
     internal class Program {
         static void Main() {
-            using StreamWriter sw = new("../../../../results_disused/expected_test.csv");
+            using StreamWriter sw = new("../../../../results_disused/ddouble_test_p45.csv");
             
-            for (double h = 1d / 1024; h < 0.25; h *= 2) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    CheckExpectedN(h, a, sw);
+            for (double h = 1d / 65536; h < 1; h *= 2) {
+                for (double a = Math.ScaleB(1, -512); a < 1; a *= 16) {
+                    CheckExpectedDDouble(h, a, sw);
                 }
                 for (double a = 1; a < 32; a += 0.25) {
-                    CheckExpectedN(h, a, sw);
+                    CheckExpectedDDouble(h, a, sw);
                 }
                 for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    CheckExpectedN(h, a, sw);
+                    CheckExpectedDDouble(h, a, sw);
+                }
+            }
+            
+            for (double h = 1; h <= 31; h += 0.125) {
+                for (double a = Math.ScaleB(1, -512); a < 1; a *= 16) {
+                    CheckExpectedDDouble(h, a, sw);
+                }
+                for (double a = 1; a < 32; a += 0.25) {
+                    CheckExpectedDDouble(h, a, sw);
                 }
             }
 
-            for (double h = 0.25; h < 16; h += 0.125) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    CheckExpectedN(h, a, sw);
-                }
-                for (double a = 1; a < 32; a += 0.25) {
-                    CheckExpectedN(h, a, sw);
-                }
-                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    CheckExpectedN(h, a, sw);
-                }
-            }
-
-            for (double h = 16; h <= 256; h *= 2) {
-                for (double a = Math.ScaleB(1, -256); a < 1; a *= 16) {
-                    CheckExpectedN(h, a, sw);
-                }
-                for (double a = 1; a < 32; a += 0.25) {
-                    CheckExpectedN(h, a, sw);
-                }
-                for (double a = 32; a <= Math.ScaleB(1, 16); a *= 2) {
-                    CheckExpectedN(h, a, sw);
+            for (double h = 31.125; h <= 37; h += 0.125) {
+                for (double a = Math.ScaleB(1, -513); a <= 0.5; a *= 16) {
+                    CheckExpectedDDouble(h, a, sw);
                 }
             }
 
@@ -69,6 +61,36 @@ namespace OwensT {
             }
             if (MultiPrecision<Pow2.N8>.Abs(actual16.Convert<Pow2.N8>() / actual8 - 1) > 1e-72) {
                 throw new ArithmeticException("fail n8");
+            }
+        }
+
+        static void CheckExpectedDDouble(double h, double a, StreamWriter sw) {
+            Console.WriteLine($"{h}, {a}");
+            sw.WriteLine($"{h}, {a}");
+
+            MultiPrecision<Pow2.N4> expected = ExpectedN4.Value(h, a);
+            ddouble actual = DDouble.Value(h, a);
+
+            Console.WriteLine(actual);
+            Console.WriteLine(expected);
+
+            sw.WriteLine(actual);
+            sw.WriteLine(expected);
+            sw.Flush();
+
+            MultiPrecision<Pow2.N4> actual_n4 = actual.ToString();
+
+            if (expected > 1e-100) {
+                if (MultiPrecision<Pow2.N4>.Abs(actual_n4 / expected - 1) > 1e-29) {
+                    Console.WriteLine("err 1e-29");
+                    sw.WriteLine("err 1e-29");
+                }
+            }
+            else { 
+                if (MultiPrecision<Pow2.N4>.Abs(actual_n4 / expected - 1) > 1e-28) {
+                    Console.WriteLine("err 1e-28");
+                    sw.WriteLine("err 1e-28");
+                }
             }
         }
 

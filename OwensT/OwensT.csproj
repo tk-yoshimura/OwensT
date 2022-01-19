@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="TYoshimura.DoubleDouble" Version="2.2.0" />
     <PackageReference Include="TYoshimura.MultiPrecision" Version="5.0.7" />
   </ItemGroup>
 
