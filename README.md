@@ -5,6 +5,7 @@ Owen's T Function Expected Value Generation
 ## Definition
 
 ![define](https://github.com/tk-yoshimura/OwensT/blob/main/figures/define.svg)  
+![plot](https://github.com/tk-yoshimura/OwensT/blob/main/figures/plot.svg)  
 
 ## Table
 

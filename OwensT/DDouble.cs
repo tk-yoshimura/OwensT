@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using DoubleDouble;
 using static DoubleDouble.ddouble;
 
@@ -17,12 +18,16 @@ namespace OwensT {
             if (h == 0d) {
                 return Atan(a) / (2 * PI);
             }
-            if (h > 37.5d) {
+            if (h > 36d) {
                 return Zero;
             }
 
             if ((double)a >= 11.5380 / Math.Pow((double)h, 0.9892)) {
                 return Erfc(h / Sqrt2) / 4;
+            }
+
+            if (a <= eps) {
+                return NearZeroA(h, a);
             }
 
             if (a < 4d || h > 0.675d) {
@@ -48,7 +53,7 @@ namespace OwensT {
 
             ddouble sp = 0, sd = 0;
 
-            for (int k = 0; k < gls.Length; k++) {
+            for (int k = 0; k < gls.Count; k++) {
                 (ddouble x, ddouble w) = gls[k];
                 ddouble x_sft = x * ap;
 
@@ -61,7 +66,7 @@ namespace OwensT {
             }
 
             if (ad > 0) {
-                for (int k = 0; k < gls.Length; k++) {
+                for (int k = 0; k < gls.Count; k++) {
                     (ddouble x, ddouble w) = gls[k];
                     ddouble x_sft = x * ad + ap;
 
@@ -76,10 +81,37 @@ namespace OwensT {
 
             ddouble y = (ig - sp * ap - sd * ad) / (2 * PI);
 
+            if (y < truncation_thr) {
+                return a * Exp(n_half_h2) / (2 * PI);
+            }
+
             return y;
         }
 
-        static readonly (ddouble x, ddouble w)[] gls = new (ddouble, ddouble)[] {
+        public static ddouble NearZeroA(ddouble h, ddouble a) {
+            ddouble a2 = a * a;
+            ddouble h2 = h * h, h4 = h2 * h2, h6 = h2 * h4;
+
+            ddouble p1 = h2 + 2d;
+            ddouble p2 = h4 + 4 * p1;
+            ddouble p3 = h6 + 6 * p2;
+
+            ddouble s = a * (1680 + (a2 * (-280 * p1 + (a2 * (42 * p2 - a2 * (5 * p3)))))) / 1680;
+            ddouble c = Exp(-h2 / 2) / (2 * PI);
+
+            ddouble y = s * c;
+
+            if (y < truncation_thr) {
+                return a * c;
+            }
+
+            return y;
+        }
+
+        private static readonly double eps = Math.ScaleB(1, -64);
+        private static readonly double truncation_thr = Math.ScaleB(1, -964);
+
+        static ReadOnlyCollection<(ddouble x, ddouble w)> gls = new(new (ddouble, ddouble)[] {
                 ((+1, -11, 0xB705E48DEC64E67BuL, 0xD073C5F3DA064847uL), (+1, -10, 0xEACB1D15A390A9C7uL, 0x6102426DBDA4E41BuL)),
                 ((+1, -9, 0xF0D84825BC4E5D7AuL, 0x326A73D47151EF22uL), (+1, -8, 0x885DFC74D7DA4BB3uL, 0xBC4144797EF4AA2CuL)),
                 ((+1, -7, 0x93B65867687CA5BEuL, 0x0D178D848CF90E06uL), (+1, -8, 0xD5806A7140F826CAuL, 0x45563956AC56D2DFuL)),
@@ -125,6 +157,6 @@ namespace OwensT {
                 ((+1, -1, 0xFDB1269E625E0D69uL, 0x07CBA1C9EDCC1BC7uL), (+1, -8, 0xD5806A7140F826CAuL, 0x45563956AC56D2DFuL)),
                 ((+1, -1, 0xFF0F27B7DA43B1A2uL, 0x85CD958C2B8EAE10uL), (+1, -8, 0x885DFC74D7DA4BB3uL, 0xBC4144797EF4AA2CuL)),
                 ((+1, -1, 0xFFD23E86DC84E6C6uL, 0x610BE30E83097E6DuL), (+1, -10, 0xEACB1D15A390A9C7uL, 0x6102426DBDA4E41BuL)),
-        };
+        });
     }
 }
